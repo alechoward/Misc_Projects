@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<script src="js/d3.min.js"></script>
+	<script>
+	function draw(data) {
+		"use strict";
+		d3.select("body")
+ 			.append("ul")
+ 			.selectAll("li")
+ 			.data(data)
+ 			.enter()
+ 			.append("li")
+ 			.text(function (d) {
+ 			return d.name1 + ": " + d.sum;
+		})
+ 		d3.selectAll("li")
+ 			.style("font-weight", function (d) {
+ 				if (d.sum < 400000){
+ 				return "normal";
+ 				} else {
+ 				return "bold";
+ 				};
+ 				}); 
+		}
+
+ 	function draw2(data) {
+ 			d3.select(".chart")
+ 				.data(data)
+ 			.enter().append("div")
+ 				.style("width",function (d) {return d.sum * 10 + "px"; })
+ 				.text(function (d) {return d.sum; });
+ 			}
+
+function draw3(data) {
+ d3.select("body")
+ .append("div")
+ .attr("class","chart")
+ .selectAll(".bar")
+ .data(data)
+ .enter()
+ .append("div")
+ .attr("class","bar")
+ .style("width", function (d){return d.sum/5000 + "px"})
+ .style("outline", "1px solid black")
+ .text(function (d){return Math.round(d.sum)});
+}
+
+
+
+	</script>
+
+</head>
+
+<body>
+		<script>
+			d3.json("data2.php",draw);
+		</script>
+
+		<hr></hr>
+
+		<script>
+			d3.json("data2.php",draw3);
+		</script>
+
+</body>
+</html>
